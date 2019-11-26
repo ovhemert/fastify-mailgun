@@ -1,0 +1,45 @@
+{
+  "name": "fastify-mailgun",
+  "version": "0.0.1",
+  "description": "Fastify plugin that adds MailGun support with incoming webhooks.",
+  "homepage": "https://github.com/ovhemert/fastify-mailgun#readme",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "standard",
+    "test": "standard && tap test/*.test.js --coverage --100",
+    "test:report": "standard && tap test/*.test.js --coverage  --coverage-report=html --100",
+    "posttest": "tap --coverage --coverage-report=lcovonly"
+  },
+  "keywords": [
+    "fastify",
+    "plugin",
+    "mailgun",
+    "mail",
+    "webhook"
+  ],
+  "author": "Osmond van Hemert <hello@ovhemert.dev> (https://ovhemert.dev)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ovhemert/fastify-mailgun.git"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/ovhemert/fastify-mailgun/issues"
+  },
+  "precommit": [
+    "lint",
+    "test"
+  ],
+  "devDependencies": {
+    "sinon": "^7.5.0",
+    "standard": "^14.3.1",
+    "tap": "^14.10.0"
+  },
+  "dependencies": {
+    "fastify-plugin": "^1.6.0",
+    "mailgun-js": "^0.22.0"
+  }
+}
