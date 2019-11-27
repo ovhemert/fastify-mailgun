@@ -5,10 +5,12 @@ const mailgun = require('mailgun-js')
 const axios = require('axios')
 const Schemas = require('./schemas')
 
-async function fastifyMailgun (fastify, options, done) {
+async function fastifyMailgun (fastify, options, next) {
   const { apiKey, domain, prefix = '/mailgun', validateWebhooks = true } = options
+  if (!domain) { return next(new Error('Missing domain')) }
   const client = options.client || mailgun({ apiKey, domain })
-  const handler = options.handler.bind(fastify)
+  if (typeof options.webhookHandler !== 'function') { return next(new Error('Missing webhookHandler function')) }
+  const webhookHandler = options.webhookHandler.bind(fastify)
 
   const getStoredMessage = async function ({ url, mime = false }) {
     try {
@@ -25,13 +27,14 @@ async function fastifyMailgun (fastify, options, done) {
     const { timestamp, token, signature } = req.body.signature
     const isValid = (validateWebhooks) ? client.validateWebhook(timestamp, token, signature) : true
     if (!isValid) { throw Error('Invalid webhook signature') }
-    const result = await handler(req.body['event-data'])
+    const result = await webhookHandler(req.body['event-data'])
     return result
   }
 
   fastify.decorate('mailgun', { client, getStoredMessage })
   fastify.post(`${prefix}/webhook`, { schema: Schemas.WEBHOOK }, hooksHandler)
-  done()
+
+  next()
 }
 
 module.exports = fp(fastifyMailgun, {
