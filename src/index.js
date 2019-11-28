@@ -13,14 +13,10 @@ async function fastifyMailgun (fastify, options, next) {
   const webhookHandler = options.webhookHandler.bind(fastify)
 
   const getStoredMessage = async function ({ url, mime = false }) {
-    try {
-      const headers = mime ? { Accept: 'message/rfc2822' } : {}
-      const auth = { username: 'api', password: client.apiKey }
-      const { data } = await axios.get(url, { auth, headers })
-      return data
-    } catch (err) {
-      return null
-    }
+    const headers = mime ? { Accept: 'message/rfc2822' } : {}
+    const auth = { username: 'api', password: client.apiKey }
+    const { data } = await axios.get(url, { auth, headers })
+    return data
   }
 
   const hooksHandler = async function (req, reply) {
