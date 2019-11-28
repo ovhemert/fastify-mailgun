@@ -34,6 +34,7 @@
     "test"
   ],
   "devDependencies": {
+    "fastify": "^2.10.0",
     "sinon": "^7.5.0",
     "standard": "^14.3.1",
     "tap": "^14.10.0"
