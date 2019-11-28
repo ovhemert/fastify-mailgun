@@ -1,6 +1,6 @@
 {
   "name": "fastify-mailgun",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Fastify plugin that adds MailGun support with incoming webhooks.",
   "homepage": "https://github.com/ovhemert/fastify-mailgun#readme",
   "main": "src/index.js",
