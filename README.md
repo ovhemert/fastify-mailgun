@@ -18,15 +18,20 @@ $ npm install fastify-mailgun
 
 ## Usage
 
-
-
 ```js
 fastify.register(require('fastify-mailgun'), {
     prefix: '/mailgun', // register your webhook (in MailGun) with '/mailgun/webhooks'
     apiKey: 'apikey-...', // your MailGun API Key
     domain: 'mydomain.com',  // you domain name
-    handler: async function (data) {
+    webhookHandler: async function (data) {
       // handle you webhook data
+
+      // example: retrieve the message from mailgun store
+      const storedMessage = await fastify.mailgun.getStoredMessage({ url: data.storage.url })
+
+      // example: send a new mail using the mailgun client
+      await fastify.mailgun.client.messages().send(...)
+
       return true
     }
   })
