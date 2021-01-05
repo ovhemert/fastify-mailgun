@@ -40,7 +40,7 @@
     "tap": "^14.10.8"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "fastify-plugin": "^1.6.1",
     "mailgun-js": "^0.22.0"
   }
